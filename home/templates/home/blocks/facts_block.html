@@ -1,0 +1,16 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<!-- Facts Start -->
+{% image self.image format-avif as img%}
+<div class="container-fluid facts my-5 py-5" data-parallax="scroll" data-image-src="{{ img.url }}">
+    <div class="container py-5">
+        <div class="row g-5">
+           {% for fact in self.facts  %}
+                <div class="col-sm-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.1s">
+                <h1 class="display-4 text-white" data-toggle="counter-up">{{ fact.title }}</h1>
+                <span class="fs-5 fw-semi-bold text-light">{{ fact.subtitle }}</span>
+                </div>
+           {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- Facts End -->

@@ -1,0 +1,33 @@
+{% load wagtailcore_tags %}
+{% with nav=settings.base.NavigationSettings %}
+{% if nav.topbar  %}
+<!-- Topbar Start -->
+<div class="container-fluid bg-dark text-light px-0 py-2">
+  <div class="row gx-0 d-none d-lg-flex">
+    <div class="col-lg-7 px-5 text-start">
+      <div class="h-100 d-inline-flex align-items-center me-4">
+        <span class="fa fa-phone-alt me-2"></span>
+        <span>{{ nav.phone }}</span>
+      </div>
+      <div class="h-100 d-inline-flex align-items-center">
+        <span class="far fa-envelope me-2"></span>
+        <span>{{ nav.email }}</span>
+      </div>
+    </div>
+    {% if nav.socials.all %}
+            <div class="col-lg-5 px-5 text-end">
+                <div class="h-100 d-inline-flex align-items-center mx-n2">
+                    <span>Follow Us:</span>
+                    {% for value in nav.socials.all  %}
+                    <a class="btn btn-link text-light" href="{{ value.url }}" target="_blank">
+                        <i class="{{ value.icon }}"></i>
+                    </a>
+                     {% endfor %}
+                </div>
+            </div>
+    {% endif %}
+  </div>
+</div>
+<!-- Topbar End -->
+{% endif %}
+{% endwith %}

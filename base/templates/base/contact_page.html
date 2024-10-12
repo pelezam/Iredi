@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block body-class %}template-contactpage{% endblock  %}
+
+{% block content %}
+     {% include "includes/page_header.html" %}
+
+         <!-- Contact Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                    <p class="fs-5 fw-bold text-primary">{{ page.page_title }}</p>
+                    <h1 class="display-5 mb-5">{{ page.subtitle }}</h1>
+                    <p class="mb-4">{{ page.content|richtext }}</a>.</p>
+                    <form method="post" action="{% pageurl page %}">
+                        {% csrf_token %}
+                       <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" name="nom" class="form-control" id="name" placeholder="Your Name" required>
+                                    <label for="name">Votre nom</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="email" name="email" class="form-control" id="email" placeholder="Your Email" required>
+                                    <label for="email">Votre Email</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="text" name="sujet" class="form-control" id="subject" placeholder="Subject" required>
+                                    <label for="subject">Sujet</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea required class="form-control" name="message" placeholder="Leave a message here" id="message" style="height: 100px"></textarea>
+                                    <label for="message">Message</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary py-3 px-4" type="submit">{{ page.send_btn_text }}</button>
+                            </div>
+                        </div>
+                    
+                    </form>
+                </div>
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" style="min-height: 450px;">
+                    <div class="position-relative rounded overflow-hidden h-100">
+                   {{ page.map|safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Contact End -->
+{% endblock  %}

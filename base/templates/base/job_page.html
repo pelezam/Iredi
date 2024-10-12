@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block body-class %}template-jobpage{% endblock  %}
+
+{% block content %}
+{% include "includes/page_header.html" with title=page.get_parent.title %}
+<div class="container my-5">
+    <h1 class="text-center">{{ page.job_title }}</h1>
+    <h5 class="mb-3">Date de publication : {{ page.publication_date|date:"d F Y" }}/ 
+                {% if page.status %}
+                    <span class="badge rounded-pill bg-success">Actif</span>
+                {% else %}
+                  <span class="badge rounded-pill bg-danger">Inactif</span>
+                {% endif%} </h5>
+    <div style="text-align:justify" class="mb-5">
+        {{ page.job_description|richtext }}
+        {% lorem 10 %}
+    </div>
+    <a href="{{ page.get_parent.url }}" class="btn btn-primary"><i class="bi bi-arrow-left"></i> Revenir à liste</a>
+</div>
+{% endblock  %}

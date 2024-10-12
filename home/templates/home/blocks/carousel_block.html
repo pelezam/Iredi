@@ -1,0 +1,37 @@
+   {% load wagtailcore_tags wagtailimages_tags %}
+   <!-- Carousel Start -->
+    <div class="container-fluid p-0 wow fadeIn" data-wow-delay="0.1s">
+        <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% for value in self  %}
+                     <div class="carousel-item {% if forloop.first %} active {% endif %}">
+                        {% image value.image format-avif as img %}
+                    <img class="w-100" src="{{ img.url }}" alt="{{ img.alt }}">
+                    <div class="carousel-caption">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <h2 class="display-1 text-white mb-5 animated slideInDown">{{ value.caption }}</h2>
+                                    <a href="{{ value.cta_url.url }}" class="btn btn-primary py-sm-3 px-sm-4">{{ value.cta_txt }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#header-carousel"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <!-- Carousel End -->
+
+    

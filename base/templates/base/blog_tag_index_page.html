@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block body-class %}template-blogtagindexpage{% endblock  %}
+
+{% block content %}
+    {% include "includes/page_header.html" %}
+
+        <!-- Service Start -->
+    <div class="container-xxl">
+        <div class="container">
+            <div class=" wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <h2 class="display-5 mb-5">
+                     {% if request.GET.tag %}
+                Tag: <span class="badge rounded-pill bg-light text-dark">{{ request.GET.tag }}</span>
+                  {% endif %}
+                </h2>
+            </div>
+              <hr>
+        </div>
+    </div>
+    <!-- Service End -->
+
+
+
+<div class="container-xxl">
+    <div class="container">
+            <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <!--<p class="fs-5 fw-bold text-primary">{{ page.title }}</p>-->
+                <h1 class="display-5 mb-5">{{ page.subtitle }}</h1>
+             </div>
+        <div class="row g-4">
+            {% for blog in blogpages  %}
+                <div class="col-lg-4 d-flex align-items-stretch">
+                <div class="card mb-4">
+                            {% image blog.image fill-700x350 as blog_img %}
+                            <a href="{{ blog.url }}"><img class="card-img-top" src="{{ blog_img.url }}" alt="{{ blog_img.alt }}"></a>
+                            <div class="card-body">
+                                <div class="small text-muted">{{ blog.first_published_at|date:"d M Y" }} / 
+                                    {% with tags=blog.tags.all %}
+                                        {% if tags %}
+                                            {% for tag in tags  %}
+                                                <a href="{% slugurl 'tags' %}?tag={{ tag }}" class="badge rounded-pill bg-light text-dark">{{ tag }}</a>
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endwith %}
+                                </div>
+                                <h2 class="card-title h4 mt-2">{{ blog.title }}</h2>
+                                <p class="card-text">{{ blog.intro }}</p>
+                                <hr>
+                                <a href="{{ blog.url }}"><span>Lire plus</span>&nbsp;<i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock  %}

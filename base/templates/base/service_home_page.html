@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body-class  %} template-servicehomepage {% endblock %}
+
+{% block content %}
+    {% include "includes/page_header.html" %}
+
+    <!-- Service Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <p class="fs-5 fw-bold text-primary">{{ page.title }}</p>
+                <h1 class="display-5 mb-5">{{ page.subtitle }}</h1>
+            </div>
+            <div class="row g-4">
+               {% for service in services  %}
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="service-item rounded d-flex h-100">
+                        <div class="service-img rounded">
+                            {% image service.service_image original as img %}
+                            <img class="img-fluid" src="{{ img.url }}" alt="">
+                        </div>
+                        <div class="service-text rounded p-5">
+                            <div class="btn-square rounded-circle mx-auto mb-3">
+                            {% image service.service_icon original as icon_img %}
+                                <img class="img-fluid" src="{{ icon_img.url }}" alt="Icon">
+                            </div>
+                            <h4 class="mb-3">{{ service.title }}</h4>
+                            <p class="mb-4">{{ service.content|richtext|truncatewords:15 }}</p>
+                            <a class="btn btn-sm" href="{{ service.url }}"><i class="fa fa-plus text-primary me-2"></i>{{ service.cta_txt}}</a>
+                        </div>
+                    </div>
+                </div>
+               {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Service End -->
+
+
+    
+
+
+{% endblock %}

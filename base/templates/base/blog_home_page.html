@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block body-class %}template-bloghomepage{% endblock  %}
+
+{% block content %}
+
+    {% include "includes/page_header.html" %}
+
+ 
+<div class="container-xxl">
+    <div class="container">
+            <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <!--<p class="fs-5 fw-bold text-primary">{{ page.title }}</p>-->
+                <h1 class="display-5 mb-5">{{ page.subtitle }}</h1>
+             </div>
+        <div class="row g-4">
+            {% for blog in blogpages  %}
+                <div class="col-lg-4 d-flex align-items-stretch">
+                <div class="card mb-4">
+                            {% image blog.image fill-700x350 as blog_img %}
+                            <a href="{{ blog.url }}"><img class="card-img-top" src="{{ blog_img.url }}" alt="{{ blog_img.alt }}"></a>
+                            <div class="card-body">
+                                <div class="small text-muted">{{ blog.first_published_at|date:"d M Y" }} / 
+                                    {% with tags=blog.tags.all %}
+                                        {% if tags %}
+                                            {% for tag in tags  %}
+                                                <a href="{% slugurl 'tags' %}?tag={{ tag }}" class="badge rounded-pill bg-light text-dark">{{ tag }}</a>
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endwith %}
+                                </div>
+                                <h2 class="card-title h4 mt-2 mb-2">{{ blog.title }}</h2>
+                                <p class="card-text">{{ blog.intro }}</p>
+                                <hr>
+                                <a href="{{ blog.url }}"><span>Lire plus</span>&nbsp;<i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                </div>
+            {% endfor %}
+            <div class="col-md-12 d-flex justify-content-center">
+                {% if blogpages.paginator.num_pages > 1 %}
+                    <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {% if blogpages.has_previous %}
+                             <li class="page-item"><a class="page-link" href="?page={{ blogpages.previous_page_number }}">Précédent</a></li>
+                        {% endif %}
+                        {% for page_num in blogpages.paginator.page_range  %}
+                              <li class="page-item {% if blogpages.number == page_num %} active {% endif %}"><a class="page-link" href="?page={{ page_num }}">{{page_num}}</a></li>
+                        {% endfor %}
+                       {% if blogpages.has_next %}
+                             <li class="page-item"><a class="page-link" href="?page={{ blogpages.next_page_number }}">Suivant</a></li>
+                       {% endif %}
+                    </ul>
+                </nav>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock  %}

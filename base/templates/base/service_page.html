@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block body-class %}template-servicepage{% endblock  %}
+
+{% block content %}
+
+{% include "includes/page_header.html" %}
+
+<div class="container-fluid pb-2">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-7">
+                <h5 class="section-about-title pe-3">{{ page.title }}</h5>
+                <h1 class="mb-4">{{ page.subtitle }}</span></h1>
+                <div class="mb-4" style="text-align:justify">{{ page.content|richtext }}</div>
+                <!-- <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" href="{{ cta.url.url }}">{{ page.cta_txt }}</a> -->
+            </div>
+
+            <div class="col-lg-5">
+                <div class="h-100">
+                    {% image page.service_image fill-500x400 as img %}
+                    <img src="{{ img.url }}" class="img-fluid w-100 h-100 rounded" alt="{{ img.alt }}">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="mb-4">{{ page.other_service_header }}<hr></h3>
+        </div>
+       {% for item in services %}
+             <div class="col-md-4 mb-3">
+            <div class="card">
+                {% image item.service_image fill-300x200 as item_img %}
+                <img src="{{ item_img.url }}" class="img-fluid" alt="{{ item_img.alt }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.title }}</h5>
+                    <p class="card-text">{{ item.content|richtext|truncatewords:20 }}.</p>
+                    <a href="{{ item.url }}" class="btn btn-primary">{{ item.cta_txt }}</a>
+                </div>
+            </div>
+        </div>
+       {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body-class %}template-aboutpage{% endblock  %}
+
+{% block content %}
+
+    {% include "includes/page_header.html" %}
+
+    <div class="container-fluid pb-4">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-5">
+                    <div class="h-100" >
+                        {% image page.image fill-500x400 as img %}
+                        <img src="{{ img.url }}" class="img-fluid w-100 h-100" alt="{{ img.alt }}">
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <!--<h5 class="section-about-title pe-3">About Us</h5>-->
+                    <h1 class="mb-4">{{ page.subtitle }}</span></h1>
+                    <div class="mb-4" style="text-align:justify">{{ page.content|richtext }}</div>
+                    <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" href="{{ cta.url.url }}">{{ page.cta_txt }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<!-- Team Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <p class="fs-5 fw-bold text-primary">{{ page.team_title  }}</p>
+            <h1 class="display-5 mb-5">{{ page.team_subtitle }}</h1>
+        </div>
+        <div class="row g-4">
+           {% for team in teams  %}
+                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="team-item rounded">
+                {% image team.photo fill-408x482 as team_photo %}
+                    <img class="img-fluid" src="{{ team_photo.url }}" alt="{{ team_photo.alt }}">
+                    <div class="team-text">
+                        <h4 class="mb-0">{{ team.last_name }} {{ team.first_name }}</h4>
+                        <p class="text-primary">{{ team.profession }}</p>
+                        <div class="">
+                           {% comment "" %}
+                                {{ team.content }}
+                           {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+           {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- Team End -->
+{% endblock  %}

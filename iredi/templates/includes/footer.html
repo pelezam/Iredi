@@ -1,0 +1,57 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% with ft=settings.base.NavigationSettings %}
+<!-- Footer Start -->
+<div class="container-fluid bg-dark text-light footer mt-2 py-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-lg-3 col-md-6">
+                <h4 class="text-white mb-4">{{ ft.ft_one_title }}</h4>
+                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>{{ ft.ft_one_adress }}</p>
+                <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>{{ ft.phone }}</p>
+                <p class="mb-2"><i class="fa fa-envelope me-3"></i>{{ ft.email }}</p>
+                <div class="d-flex pt-2">
+                     {% for value in ft.socials.all  %}
+                         <a class="btn btn-square btn-outline-light rounded-circle me-2" target="_blank" href="{{ value.url }}"><i
+                            class="{{ value.icon }}"></i></a>
+                     {% endfor %}
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <h4 class="text-white mb-4">{{ ft.ft_two_menu.title }}</h4>
+                {% for item in ft.ft_two_menu.menu_items.all  %}
+                    <a class="btn btn-link" href="{{ item.link_url.url }}">
+                        {% if item.link_title %}
+                            {{ item.link_title }}
+                        {% else %}
+                        {{ item.link_url.title }}
+                        {% endif %}
+                    </a>
+                {% endfor %}
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <h4 class="text-white mb-4">{{ ft.ft_three_menu.title }}</h4>
+                {% for item in ft.ft_three_menu.menu_items.all  %}
+                    <a class="btn btn-link" href="{{ item.link_url.url }}">
+                        {% if item.link_title %}
+                            {{ item.link_title }}
+                        {% else %}
+                        {{ item.link_url.title }}
+                        {% endif %}
+                    </a>
+                {% endfor %}
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <h4 class="text-white mb-4">{{ ft.ft_four_title }}</h4>
+                <p>{{ ft.ft_four_content|richtext }}</p>
+               <!-- <div class="position-relative w-100">
+                    <input class="form-control bg-light border-light w-100 py-3 ps-4 pe-5" type="text"
+                        placeholder="Your email">
+                    <button type="button"
+                        class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer End -->
+{% endwith %}

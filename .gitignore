@@ -1,0 +1,23 @@
+*.sqlite3
+__pycache__/
+.cache/
+.tox/
+.coverage
+.DS_Store
+.python-version
+*.egg-info/
+*.py[cod]
+coverage.xml
+build/
+dist/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+media/*

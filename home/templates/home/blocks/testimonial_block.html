@@ -1,0 +1,28 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<!-- Testimonial Start -->
+<div class="container-xxl py-3 mb-3">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-5 wow fadeInUp" data-wow-delay="0.1s">
+                <p class="fs-5 fw-bold text-primary">{{ self.title }}</p>
+                <h1 class="display-5 mb-3">{{ self.subtitle }}</h1>
+                <p class="mb-4">{{ self.content }}</p>
+                <a class="btn btn-primary py-3 px-4" href="{{ self.cta_url.url }}">{{ self.cta_txt }}</a>
+            </div>
+            <div class="col-lg-7 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="owl-carousel testimonial-carousel">
+                    {% for testimonial in testimonials  %}
+                        <div class="testimonial-item">
+                        {% image testimonial.client_image fill-100x100 as tst_img %}
+                        <img class="img-fluid rounded mb-3" src="{{ tst_img.url }}" alt="{{ test_img.alt }}">
+                        <p class="fs-5">{{ testimonial.content }}</p>
+                        <h4>{{ testimonial.client_name }}</h4>
+                        <span>{{ testimonial.client_profession }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Testimonial End -->

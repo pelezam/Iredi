@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block body-class %}template-blogpage{% endblock  %}
+
+{% block content %}
+    
+{% include "includes/page_header.html" %}
+
+ <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Post content-->
+                    <article>
+                        <!-- Post header-->
+                        <header class="mb-4">
+                            <!-- Post title-->
+                            <h1 class="fw-bolder mb-1">{{ page.title }}</h1>
+                            <!-- Post meta content-->
+                            <div class="text-muted fst-italic mb-2">{{ page.first_published_at|date:"d F Y" }}</div>
+                            <!-- Post categories-->
+                            {% with tags=page.tags.all %}
+                                {% if tags %}
+                                    {% for tag in tags %}
+                                         <a class="badge bg-light text-decoration-none text-dark" href="{% slugurl 'tags' %}?tag={{ tag }}">{{ tag }}</a>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endwith %}
+                            
+                        </header>
+                        <!-- Preview image figure-->
+                        {% image page.image fill-900x400 as blog_img %}
+                        <figure class="mb-4"><img class="img-fluid rounded" src="{{ blog_img.url }}" alt="blog_img.alt" /></figure>
+                        <!-- Post content-->
+                        <section class="mb-5 fs-5" style="text-align:justify">
+                                {{ page.content|richtext }}
+                        </section>
+                    </article>
+                 
+                </div>
+                <!-- Side widgets-->
+                <div class="col-lg-4">
+                    <!-- Categories widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">{% if page.tag_section_title %} {{page.tag_section_title}} {% else %} Catégories {% endif %}</div>
+                        <div class="card-body">
+                            <div class="row">
+                                {% for tag in tags  %}
+                                    <div class="col-sm-6">
+                                        <ul class="text-center list-unstyled mb-1">
+                                            <li><a href="{% slugurl 'tags' %}?tag={{ tag }}">{{ tag }}</a></li>
+                                        </ul>
+                                    </div>
+                                {% endfor %}   
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Side widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">{% if page.other_blog_title %} {{page.other_blog_title}} {% else %}Autres Articles{% endif %}</div>
+                        <div class="card-body">
+                            <ul>
+                                {% for blog in blogpages  %}
+                                    <li><a href="{{ blog.url }}">{{ blog.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock  %}
