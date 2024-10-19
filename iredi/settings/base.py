@@ -27,6 +27,8 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
+    "django_recaptcha",
+    "wagtailcaptcha",
     "anymail",
     "base",
     "home",
@@ -51,11 +53,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "maintenance",
 ]
 
 MIDDLEWARE = [
-    "maintenance.middleware.MaintenanceModeMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -189,11 +189,13 @@ WAGTAILADMIN_BASE_URL = os.getenv("WAGTAILADMIN_BASE_URL")
 # see https://docs.wagtail.org/en/stable/advanced_topics/deploying.html#user-uploaded-files
 WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'key', 'odt', 'pdf', 'pptx', 'rtf', 'txt', 'xlsx', 'zip']
 
-
+EMAIL_BACKEND = "anymail.backends.brevo.EmailBackend"
 
 ANYMAIL = {
-    "MAILGUN_API_KEY": os.getenv("MAILGUN_API_KEY"),
-    "MAILGUN_SENDER_DOMAIN": os.getenv("MAILGUN_SENDER_DOMAIN") ,  # your Mailgun domain, if needed
+    "BREVO_API_KEY": os.getenv("BREVO_API_KEY"),
 }
 
-EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
+
+RECAPTCHA_PUBLIC_KEY = os.getenv("RECAPTCHA_PUBLIC_KEY")
+RECAPTCHA_PRIVATE_KEY = os.getenv("RECAPTCHA_PRIVATE_KEY")

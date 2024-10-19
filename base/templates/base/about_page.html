@@ -13,14 +13,14 @@
                 <div class="col-lg-5">
                     <div class="h-100" >
                         {% image page.image fill-500x400 as img %}
-                        <img src="{{ img.url }}" class="img-fluid w-100 h-100" alt="{{ img.alt }}">
+                        <img src="{{ img.url }}" class=" rounded img-fluid w-100 h-100" alt="{{ img.alt }}">
                     </div>
                 </div>
                 <div class="col-lg-7">
                     <!--<h5 class="section-about-title pe-3">About Us</h5>-->
                     <h1 class="mb-4">{{ page.subtitle }}</span></h1>
                     <div class="mb-4" style="text-align:justify">{{ page.content|richtext }}</div>
-                    <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" href="{{ cta.url.url }}">{{ page.cta_txt }}</a>
+                    <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" href="{{ page.cta_url.url }}">{{ page.cta_txt }}</a>
                 </div>
             </div>
         </div>

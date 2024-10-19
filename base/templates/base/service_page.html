@@ -18,7 +18,7 @@
 
             <div class="col-lg-5">
                 <div class="h-100">
-                    {% image page.service_image fill-500x400 as img %}
+                    {% image page.service_image format-avif fill-515x410 as img %}
                     <img src="{{ img.url }}" class="img-fluid w-100 h-100 rounded" alt="{{ img.alt }}">
                 </div>
             </div>
@@ -29,12 +29,12 @@
 <div class="container py-5">
     <div class="row">
         <div class="col-md-12">
-            <h3 class="mb-4">{{ page.other_service_header }}<hr></h3>
+            <h3 class="mb-4">{% if page.other_service_header %}{{ page.other_service_header }}{% else %}Autres services{% endif %}<hr></h3>
         </div>
        {% for item in services %}
              <div class="col-md-4 mb-3">
-            <div class="card">
-                {% image item.service_image fill-300x200 as item_img %}
+            <div class="card h-100">
+                {% image item.service_image fill-415x275 format-avif as item_img %}
                 <img src="{{ item_img.url }}" class="img-fluid" alt="{{ item_img.alt }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ item.title }}</h5>

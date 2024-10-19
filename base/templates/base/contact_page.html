@@ -2,6 +2,10 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% block body-class %}template-contactpage{% endblock  %}
 
+{% block extra_css %}
+       <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{% endblock %}
+
 {% block content %}
      {% include "includes/page_header.html" %}
 
@@ -40,6 +44,8 @@
                                     <label for="message">Message</label>
                                 </div>
                             </div>
+                             <div class="g-recaptcha" data-sitekey="6Le8tWUqAAAAAJJTnBZ-5CvmAKtMTDvCNJF8UEO8" required></div>
+                            <br/>
                             <div class="col-12">
                                 <button class="btn btn-primary py-3 px-4" type="submit">{{ page.send_btn_text }}</button>
                             </div>
@@ -56,4 +62,17 @@
         </div>
     </div>
     <!-- Contact End -->
+{% endblock  %}
+
+
+{% block extra_js %}
+    <script>
+window.onload = function() {
+var $recaptcha = document.querySelector('#g-recaptcha-response');
+
+if($recaptcha) {
+$recaptcha.setAttribute("required", "required");
+}
+};
+</script>
 {% endblock  %}

@@ -15,6 +15,7 @@ from wagtail.contrib.forms.panels import FormSubmissionsPanel
 from taggit.models import Tag
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.utils import timezone
+from wagtailcaptcha.models import WagtailCaptchaEmailForm
 
 
 class BlogPageTag(TaggedItemBase):
@@ -88,8 +89,6 @@ class ServiceHomePage(Page):
     max_count = 1
     parent_page_types = ['home.HomePage']
 
-
-    banner = models.ForeignKey(get_image_model(), on_delete=models.SET_NULL, blank=True, null=True)
     subtitle = models.CharField(max_length=255, blank=True)
 
     def get_context(self, request, *args, **kwargs):
@@ -101,7 +100,6 @@ class ServiceHomePage(Page):
 
 
     content_panels = Page.content_panels + [
-        FieldPanel('banner'),
         FieldPanel('subtitle')
     ]
 
@@ -112,7 +110,7 @@ class ServicePage(Page):
 
     service_image = models.ForeignKey(get_image_model(), on_delete=models.SET_NULL, blank=True, null=True, related_name="+")
     subtitle = models.CharField(max_length=255, blank=True)
-    service_icon = models.ForeignKey(get_image_model(), on_delete=models.SET_NULL, blank=True, null=True, related_name="+")
+    service_icon = models.CharField(max_length=255, blank=True)
     content = RichTextField(blank=True)
     cta_txt = models.CharField(max_length=255, blank=True)
     other_service_header = models.CharField(max_length=250, blank=True)
@@ -285,7 +283,7 @@ class FormField(AbstractFormField):
     page = ParentalKey('ContactPage', on_delete=models.CASCADE, related_name="form_fields")
 
 
-class ContactPage(AbstractEmailForm):
+class ContactPage(WagtailCaptchaEmailForm):
     template = "base/contact_page.html"
     max_count = 1
     parent_page_types = ["home.HomePage"]
@@ -298,7 +296,7 @@ class ContactPage(AbstractEmailForm):
     send_btn_text = models.CharField(max_length=250, blank=True)
 
 
-    content_panels = AbstractEmailForm.content_panels + [
+    content_panels = WagtailCaptchaEmailForm.content_panels + [
         FormSubmissionsPanel(),
         FieldPanel("page_title"),
         FieldPanel("subtitle"),

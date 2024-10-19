@@ -24,7 +24,7 @@
                             {% endwith %}
                         </div>
                         <h2 class="card-title h4 mt-2">{{ blog.title }}</h2>
-                        <p class="card-text">{{ blog.intro }}</p>
+                        <p class="card-text">{{ blog.intro|truncatewords:20 }}</p>
                         <hr>
                         <a href="{{ blog.url }}"><span>Lire plus</span>&nbsp;<i class="bi bi-arrow-right"></i></a>
                     </div>

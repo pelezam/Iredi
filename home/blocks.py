@@ -49,7 +49,7 @@ class TopFeatureBlock(ListBlock):
 class AboutBlock(StructBlock):
     image = ImageChooserBlock(required=False)
     title = CharBlock(required=False)
-    title_caption = CharBlock()
+    title_caption = CharBlock(required=False)
     subtitle = CharBlock(required=False)
     description = TextBlock(required=False)
     cta_txt = CharBlock(required=False)
@@ -89,10 +89,11 @@ class FeatureBlock(StructBlock):
 class ServiceBlock(StructBlock):
     title = CharBlock(required=False)
     subtitle = CharBlock(required=False)
+    cta = PageChooserBlock(required=False)
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context)
-        services = ServicePage.objects.all().live()
+        services = ServicePage.objects.all().live()[:6]
         context['services'] = services
         return context
 

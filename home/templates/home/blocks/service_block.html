@@ -16,8 +16,7 @@
                             </div>
                             <div class="service-text rounded p-5">
                                 <div class="btn-square rounded-circle mx-auto mb-3">
-                                    {% image service.service_icon original as  service_icon %}    
-                                    <img class="img-fluid" src="{{ service_icon.url }}" alt="Icon">
+                                    <i class="{{ service.service_icon }} fa-3x text-primary"></i>
                                 </div>
                                 <h4 class="mb-3">{{ service.title }}</h4>
                                 <p class="mb-4">{{ service.content|richtext|truncatewords:15 }}</p>
@@ -26,6 +25,10 @@
                         </div>
                     </div>
                 {% endfor %}
+                <div class="col-lg-12 mt-5 text-left">
+                    <a class="btn btn-primary py-3 px-4" href="{{ self.cta.url }}">{{ self.cta.title }}&nbsp;<i class="bi bi-arrow-right"></i></a>
+                </div>
+                
             </div>
         </div>
     </div>

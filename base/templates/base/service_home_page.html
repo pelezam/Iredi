@@ -19,12 +19,11 @@
                     <div class="service-item rounded d-flex h-100">
                         <div class="service-img rounded">
                             {% image service.service_image original as img %}
-                            <img class="img-fluid" src="{{ img.url }}" alt="">
+                            <img class="img-fluid" src="{{ img.url }}" alt="{{ img.alt}}">
                         </div>
                         <div class="service-text rounded p-5">
                             <div class="btn-square rounded-circle mx-auto mb-3">
-                            {% image service.service_icon original as icon_img %}
-                                <img class="img-fluid" src="{{ icon_img.url }}" alt="Icon">
+                                <i class="{{ service.service_icon }} fa-3x text-primary"></i>
                             </div>
                             <h4 class="mb-3">{{ service.title }}</h4>
                             <p class="mb-4">{{ service.content|richtext|truncatewords:15 }}</p>
